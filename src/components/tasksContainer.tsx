@@ -1,8 +1,10 @@
+"use client";
+import { useState } from "react";
 import AddTask from "./addTask";
 import TaskRow from "./taskRow";
 
 export default function TasksContainer() {
-  let taskArray = [
+  const dafaultTasksArray = [
     {
       id: "1",
       title: "Sample 1",
@@ -24,6 +26,11 @@ export default function TasksContainer() {
     { id: "4", title: "Sample 4", description: "vrws", status: "Incomplete" },
     { id: "5", title: "Sample 5", description: "grsgv", status: "Incomplete" },
   ];
+  const [taskArray, setTaskArray] = useState(dafaultTasksArray);
+  const updateTasksArray = (task) => {
+    setTaskArray((taskArray) => [...taskArray, task]);
+  };
+
   return (
     <>
       <div className="border border-solid border-indigo-600">
@@ -31,7 +38,7 @@ export default function TasksContainer() {
         {taskArray.map((task) => (
           <TaskRow key={task.id} task={task} id={"1234"} />
         ))}
-        <AddTask />
+        <AddTask addTask={updateTasksArray} />
       </div>
     </>
   );
